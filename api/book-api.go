@@ -32,6 +32,7 @@ func UpdateBook(ctx iris.Context) {
 
 	ctx.JSON(book)
 }
+
 func DeleteBook(ctx iris.Context) {
 	var bookId, err = ctx.Params().GetUint("id")
 

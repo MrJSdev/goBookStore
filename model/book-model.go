@@ -8,22 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
-
-func InitDbConnection() {
-	dbValue, err := config.GetDB()
-
-	db = dbValue
-
-	db.AutoMigrate(&entity.Book{})
-
-	if err != nil {
-		fmt.Printf("there was something wrong to connect DB: %s", err.Error())
-	}
-
-}
-
 func SaveBook(book *entity.Book) {
+	var db = config.GetDB()
 	db.AutoMigrate(&entity.Book{})
 
 	db.Create(&book)
@@ -49,6 +35,7 @@ func UpdateBook(bookId uint, book *entity.Book) {
 }
 
 func GetBookByID(bookId uint) (entity.Book, *gorm.DB) {
+	var db = config.GetDB()
 	var book entity.Book
 
 	return book, db.Model(entity.Book{}).Where("ID=?", bookId).Find(&book)
@@ -59,6 +46,8 @@ func GetFirstBook(book *entity.Book) {
 }
 
 func GetBooksList() []entity.Book {
+	var db = config.GetDB()
+
 	var books []entity.Book
 	db.Find(&books)
 	return books

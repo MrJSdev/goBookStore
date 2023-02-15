@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/MrJSdev/goBookStore/model"
+	"github.com/MrJSdev/goBookStore/config"
 	"github.com/MrJSdev/goBookStore/route"
 	"github.com/kataras/iris/v12"
 )
@@ -9,7 +9,7 @@ import (
 func main() {
 	app := iris.New()
 
-	model.InitDbConnection()
+	config.InitConnection()
 
 	// Test route
 	app.Get("/ping", func(ctx iris.Context) {
